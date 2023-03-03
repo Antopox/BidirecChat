@@ -39,7 +39,6 @@
                 android:value="" />
         </activity>
         <activity android:name="com.example.chat_bidireccional.controllers.MainActivity" />
-        <activity android:name="com.example.chat_bidireccional.controllers.SettingActivity" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"

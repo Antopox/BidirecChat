@@ -36,7 +36,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         Message m = messages.get(position);
 
         if (m.getNick().equals("")) {
-            holder.local.setText(MainActivity.txtNick.getText());
+            holder.local.setText("Tu");
             holder.msg.setText(m.getMsg() + " ");
             holder.client.setText("");
         }else{

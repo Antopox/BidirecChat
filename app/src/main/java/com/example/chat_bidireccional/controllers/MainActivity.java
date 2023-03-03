@@ -2,12 +2,9 @@ package com.example.chat_bidireccional.controllers;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,9 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -44,11 +39,10 @@ public class MainActivity extends AppCompatActivity{
     private TextInputEditText txtWritedMsg;
     public static TextView txtNick;
     private TextInputEditText txtIP;
-    public RecyclerView recViewMsgs;
-    public Button btSend;
-    public Pack pack;
-    String nick, ip, message;
-    public ConstraintLayout screen;
+    private RecyclerView recViewMsgs;
+    private Button btSend;
+    private Pack pack;
+    private String nick, ip, message;
 
     Client c;
     Server s;
@@ -60,6 +54,12 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        txtWritedMsg = findViewById(R.id.txtWritedMsg);
+        txtNick = findViewById(R.id.txtNick);
+        txtIP = findViewById(R.id.txtIP);
+        recViewMsgs = findViewById(R.id.Msg_RecView);
+        btSend = findViewById(R.id.btSend);
+
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                 .permitNetwork().build());
 
@@ -68,11 +68,7 @@ public class MainActivity extends AppCompatActivity{
         messages = new ArrayList<>();
         messages = (ArrayList<Message>) Message.listAll(Message.class);
         size = messages.size();
-        txtWritedMsg = findViewById(R.id.txtWritedMsg);
-        txtNick = findViewById(R.id.txtNick);
-        txtIP = findViewById(R.id.txtIP);
-        recViewMsgs = findViewById(R.id.Msg_RecView);
-        btSend = findViewById(R.id.btSend);
+
 
         txtNick.setText(user);
         LinearLayoutManager lm = new LinearLayoutManager(this);
@@ -120,7 +116,7 @@ public class MainActivity extends AppCompatActivity{
         Socket cs;
 
         public Server(){
-            try {
+            try { 
                 ss = new ServerSocket(1500);
                 ss.setReuseAddress(true);
                 Log.d("server", "Server on");
@@ -169,36 +165,6 @@ public class MainActivity extends AppCompatActivity{
                     e.printStackTrace();
                 }
             }
-        }
-    }
-
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu,menu);
-
-        return true;
-    }
-    //Iniciamos la actividad para los ajustes
-    public boolean onOptionsItemSelected(@NonNull MenuItem item){
-        int itemId = item.getItemId();
-
-        switch (itemId){
-            case R.id.settings:
-                Intent i = new Intent(MainActivity.this, SettingActivity.class);
-                startActivity(i);
-        }
-        return true;
-    }
-    public void loadPreferences(){
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        String user = sharedPreferences.getString("user", "");
-        String theme = sharedPreferences.getString("ListThemes", "Oscuro");
-
-        if (user.equals("")){
-            txtNick.setText(user);
-        }
-        switch (theme){
-            case "Oscuro":
-
         }
     }
 }
